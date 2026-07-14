@@ -77,51 +77,6 @@ const services = [
   { title: 'AI & Agentic Systems', line: 'De-risking LLM initiatives; AI coding agents as a real development stack.' },
 ];
 
-const stats = [
-  { value: '6', label: 'US patents' },
-  { value: '3,000+', label: 'Walmart stores running his IP' },
-  { value: '1', label: 'startup exit via acquisition' },
-  { value: '4→19', label: 'engineering team grown' },
-];
-
-const timeline = [
-  {
-    years: '2025 —',
-    company: 'Teemyo.ai',
-    role: 'Founder & CEO',
-    stat: '300+ downloads, $0 paid',
-    proof: 'Sole engineer shipping iOS + Android with Claude Code.',
-  },
-  {
-    years: '2021 – 25',
-    company: 'Walmart',
-    role: 'Principal Lead, AI & Robotics',
-    stat: '3,000+ stores',
-    proof: 'Invented MultiSignal sensor fusion; IP absorbed into national loss-prevention infrastructure.',
-  },
-  {
-    years: '2018 – 21',
-    company: 'Standard AI',
-    role: 'Head of Perception & Mapping',
-    stat: 'weeks → hours',
-    proof: 'Rebuilt camera calibration end-to-end; published at ICRA 2022; grew team 4→19.',
-  },
-  {
-    years: '2017 – 19',
-    company: 'Explorer.AI',
-    role: 'Co-Founder & CTO',
-    stat: 'acquired',
-    proof: 'HD maps for autonomous vehicles, tested in cars at three AV companies.',
-  },
-  {
-    years: '2015 – 17',
-    company: 'Pivotal',
-    role: 'SRE Tech Lead',
-    stat: '100+ tenants',
-    proof: 'Ran the canonical Cloud Foundry installation for the entire Foundation.',
-  },
-];
-
 const principles = [
   { title: 'Go to the ground', body: 'Worked cashier shifts at Walmart to get ground truth no dashboard shows.' },
   { title: 'Kill hypotheses cleanly', body: 'Evidence retires features — not attachment.' },
@@ -143,7 +98,6 @@ export default function ConsultingLandingPage() {
             <div className="flex items-center gap-7 text-sm">
               <a href="#multimodal" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Multimodal AI</a>
               <a href="#services" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Services</a>
-              <a href="#record" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Track record</a>
               <a
                 href={MAILTO}
                 className="bg-signal text-clay-50 hover:bg-signal-dim px-4 py-2 rounded-sm transition-colors text-sm font-medium"
@@ -295,47 +249,6 @@ export default function ConsultingLandingPage() {
               Get in touch about fractional work →
             </a>
           </Reveal>
-        </div>
-      </section>
-
-      {/* Proof — stats + track record */}
-      <section id="record" className="py-20 md:py-24 bg-cream border-y border-clay-200">
-        <div className="max-w-4xl mx-auto px-6">
-          <Reveal>
-            <Kicker label="Track record" />
-            <h2 className="font-display text-3xl md:text-4xl text-clay-900 mb-10">
-              A decade proving hard tech in production
-            </h2>
-          </Reveal>
-          <Reveal>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pb-10 mb-4 border-b border-clay-200">
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <p className="font-display text-3xl text-clay-900">{s.value}</p>
-                  <p className="text-sm text-clay-500 mt-1">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-          <div>
-            {timeline.map((t, i) => (
-              <Reveal key={t.company} delay={i * 80}>
-                <div className="py-6 border-b border-clay-200 last:border-b-0">
-                  <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
-                    <h3 className="font-display text-xl text-clay-900">
-                      {t.company}
-                      <span className="text-clay-500 font-sans text-base ml-3">{t.role}</span>
-                    </h3>
-                    <p className="font-mono text-sm text-signal">{t.stat}</p>
-                  </div>
-                  <p className="text-base text-clay-600 leading-relaxed">
-                    <span className="font-mono text-xs text-clay-400 mr-3">{t.years}</span>
-                    {t.proof}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
