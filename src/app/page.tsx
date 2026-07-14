@@ -77,12 +77,6 @@ const services = [
   { title: 'AI & Agentic Systems', line: 'De-risking LLM initiatives; AI coding agents as a real development stack.' },
 ];
 
-const principles = [
-  { title: 'Go to the ground', body: 'Worked cashier shifts at Walmart to get ground truth no dashboard shows.' },
-  { title: 'Kill hypotheses cleanly', body: 'Evidence retires features — not attachment.' },
-  { title: 'Hold the quality line', body: 'Shipping errors into live stores costs 100× fixing them first.' },
-];
-
 /* ── Page ──────────────────────────────────────────────────────── */
 
 export default function ConsultingLandingPage() {
@@ -249,30 +243,6 @@ export default function ConsultingLandingPage() {
               Get in touch about fractional work →
             </a>
           </Reveal>
-        </div>
-      </section>
-
-      {/* How I work */}
-      <section className="py-20 md:py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid opacity-50" aria-hidden="true"></div>
-        <div className="relative max-w-4xl mx-auto px-6">
-          <Reveal>
-            <Kicker label="How I work" />
-            <blockquote className="font-display text-2xl md:text-3xl text-clay-900 leading-snug max-w-2xl mb-14">
-              &ldquo;A C-suite presentation, an RFID signal collision, and a cashier
-              shift — <em className="text-signal">all in the same week.</em>&rdquo;
-            </blockquote>
-          </Reveal>
-          <div className="grid md:grid-cols-3 gap-10">
-            {principles.map((p, i) => (
-              <Reveal key={p.title} delay={i * 100}>
-                <div>
-                  <h3 className="font-semibold text-clay-900 mb-2">{p.title}</h3>
-                  <p className="text-base text-clay-600 leading-relaxed">{p.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
