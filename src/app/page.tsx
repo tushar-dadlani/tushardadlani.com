@@ -166,14 +166,12 @@ export default function ConsultingLandingPage() {
           </Reveal>
           <Reveal delay={100}>
             <h1 className="font-display text-4xl md:text-5xl text-clay-900 leading-[1.15] max-w-2xl mb-6">
-              Hard technology, turned into <em className="text-signal">shipped product.</em>
+              Shipping AI in production for <em className="text-signal">over a decade.</em>
             </h1>
           </Reveal>
           <Reveal delay={200}>
             <p className="text-lg text-clay-600 max-w-xl leading-relaxed mb-9">
-              Fractional CTO and product leadership for companies building with AI —
-              founder, <strong className="text-clay-900 font-semibold">6 US patents</strong>,
-              platforms scaled to <strong className="text-clay-900 font-semibold">3,000+ Walmart stores</strong>.
+              Fractional CTO and product leadership for companies building with AI.
             </p>
           </Reveal>
           <Reveal delay={300}>
@@ -196,6 +194,24 @@ export default function ConsultingLandingPage() {
           </Reveal>
         </div>
       </header>
+
+      {/* Company logos */}
+      <div className="border-y border-clay-200 bg-cream">
+        <div className="max-w-4xl mx-auto px-6 py-8">
+          <p className="font-mono text-xs tracking-[0.15em] uppercase text-clay-400 mb-6 text-center">
+            Built and shipped at
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+            {/* eslint-disable @next/next/no-img-element */}
+            <img src="/logos/walmart.svg" alt="Walmart" className="h-6 w-auto grayscale opacity-60" />
+            <img src="/logos/standardai.svg" alt="Standard AI" className="h-5 w-auto grayscale opacity-60" />
+            <img src="/logos/explorer.png" alt="Explorer.AI" className="h-6 w-auto invert grayscale opacity-60" />
+            <img src="/logos/pivotal.svg" alt="Pivotal" className="h-6 w-auto grayscale opacity-60" />
+            <img src="/logos/teemyo.svg" alt="Teemyo" className="h-7 w-auto grayscale opacity-60" />
+            {/* eslint-enable @next/next/no-img-element */}
+          </div>
+        </div>
+      </div>
 
       {/* Flagship — Multimodal AI (full detail) */}
       <section id="multimodal" className="py-20 md:py-24 bg-cream border-y border-clay-200">
