@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background Square -->
+  <rect width="400" height="400" fill="white"/>
+  <rect x="40" y="40" width="320" height="320" 
+        fill="#f97316" rx="16"/>
+  
+  <!-- V Letter -->
+  <text x="200" y="290" 
+        font-family="Gill Sans, Arial, sans-serif" 
+        font-size="300" 
+        font-weight="700" 
+        text-anchor="middle" 
+        fill="#1e40af">
+    V
+  </text>
+</svg>

@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 34, 26, 20;
+  --background-rgb: 251, 246, 241;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+::selection {
+  background: #9a3412;
+  color: #fbf6f1;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Blueprint grid backdrop */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(34, 26, 20, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 26, 20, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .bg-grid-fade {
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 40%, transparent 100%);
+  }
+}
