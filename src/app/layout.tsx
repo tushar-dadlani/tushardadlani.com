@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces, IBM_Plex_Mono } from "next/font/google";
+import { Inter, Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { PostHogProvider } from "./providers/PostHogProvider";
@@ -9,10 +9,9 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-const fraunces = Fraunces({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: '--font-fraunces',
-  axes: ['opsz'],
+  variable: '--font-display',
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -41,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable} ${plexMono.variable} scroll-smooth`}>{/* No whitespace inside html tag */}
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${plexMono.variable} scroll-smooth`}>{/* No whitespace inside html tag */}
       <head>
         <meta name="google-adsense-account" content="ca-pub-9482504628791077" />
       </head>

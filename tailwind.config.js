@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
-        display: ['var(--font-fraunces)', 'Georgia', 'serif'],
+        display: ['var(--font-display)', 'sans-serif'],
         mono: ['var(--font-plex-mono)', 'ui-monospace', 'monospace'],
       },
       colors: {
