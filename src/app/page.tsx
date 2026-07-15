@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 const EMAIL = 'tushar@valuebridge.ai';
 const MAILTO = `mailto:${EMAIL}?subject=Consulting%20inquiry%20via%20tushardadlani.com`;
@@ -92,6 +93,7 @@ export default function ConsultingLandingPage() {
             <div className="flex items-center gap-7 text-sm">
               <a href="#multimodal" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Multimodal AI</a>
               <a href="#services" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Services</a>
+              <Link href="/readiness" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Readiness check</Link>
               <a
                 href={MAILTO}
                 className="bg-signal text-clay-50 hover:bg-signal-dim px-4 py-2 rounded-sm transition-colors text-sm font-medium"
@@ -222,6 +224,21 @@ export default function ConsultingLandingPage() {
               </a>
               <p className="text-sm text-clay-500">Fixed scope · 3–5 weeks · flat fee</p>
             </div>
+            <p className="text-base text-clay-600 mt-8">
+              See what the deliverable looks like:{' '}
+              <Link href="/samples/meridian-grocers" className="text-signal hover:text-signal-dim underline underline-offset-4">
+                sample assessment for a grocery chain
+              </Link>{' '}
+              ·{' '}
+              <Link href="/samples/atlas-specialty" className="text-signal hover:text-signal-dim underline underline-offset-4">
+                for a specialty insurer
+              </Link>
+              . Or take the{' '}
+              <Link href="/readiness" className="text-signal hover:text-signal-dim underline underline-offset-4">
+                2-minute readiness check
+              </Link>
+              .
+            </p>
           </Reveal>
         </div>
       </section>
