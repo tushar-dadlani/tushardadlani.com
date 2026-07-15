@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-const EMAIL = 'tushardadlani@gmail.com';
+const EMAIL = 'tushar@valuebridge.ai';
 const MAILTO = `mailto:${EMAIL}?subject=Consulting%20inquiry%20via%20tushardadlani.com`;
 const MAILTO_MULTIMODAL = `mailto:${EMAIL}?subject=Multimodal%20AI%20Readiness%20%E2%80%94%2030-minute%20fit%20call`;
 const LINKEDIN = 'https://www.linkedin.com/in/tushardadlani/';
