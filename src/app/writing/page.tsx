@@ -35,7 +35,7 @@ export default function WritingIndex() {
             {posts.map((post) => (
               <li key={post.slug} className="border-b border-clay-200 pb-10 last:border-0">
                 <p className="font-mono text-xs text-clay-500 mb-2">
-                  {formatDate(post.date)} · {post.readingMinutes} min read
+                  <time dateTime={post.date}>{formatDate(post.date)}</time> · {post.readingMinutes} min read
                 </p>
                 <h2 className="font-display text-2xl text-clay-900 mb-2">
                   <Link href={`/writing/${post.slug}`} className="hover:text-signal transition-colors">

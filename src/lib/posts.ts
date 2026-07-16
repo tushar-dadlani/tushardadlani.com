@@ -27,6 +27,14 @@ function readSlugs(): string[] {
     .map((f) => f.replace(/\.md$/, ''));
 }
 
+// gray-matter/js-yaml parses an unquoted `date: 2026-07-16` into a Date object,
+// so normalize to a plain YYYY-MM-DD string (UTC, to preserve the written day).
+function toISODate(v: unknown): string {
+  if (v instanceof Date && !isNaN(v.getTime())) return v.toISOString().slice(0, 10);
+  if (typeof v === 'string') return v.trim().slice(0, 10);
+  return '';
+}
+
 function readPost(slug: string): Post {
   const raw = fs.readFileSync(path.join(POSTS_DIR, `${slug}.md`), 'utf8');
   const { data, content } = matter(raw);
@@ -34,7 +42,7 @@ function readPost(slug: string): Post {
   return {
     slug,
     title: String(data.title ?? slug),
-    date: String(data.date ?? ''),
+    date: toISODate(data.date),
     description: String(data.description ?? ''),
     readingMinutes: Math.max(1, Math.round(words / 200)),
     html: marked.parse(content, { async: false }) as string,
@@ -66,6 +74,7 @@ export function getPostSlugs(): string[] {
 export function formatDate(iso: string): string {
   if (!iso) return '';
   const d = new Date(iso + 'T00:00:00Z');
+  if (isNaN(d.getTime())) return iso;
   return d.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',

@@ -45,7 +45,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
           {post.title}
         </h1>
         <p className="font-mono text-xs text-clay-500 mb-10">
-          {formatDate(post.date)} · {post.readingMinutes} min read
+          <time dateTime={post.date}>{formatDate(post.date)}</time> · {post.readingMinutes} min read
         </p>
 
         <article
