@@ -21,6 +21,26 @@ body {
   color: #fbf6f1;
 }
 
+/* Mermaid diagrams (rendered client-side inside .prose) */
+/* Hide the raw fenced source until the client swaps in the SVG. */
+pre:has(> code.language-mermaid) {
+  display: none;
+}
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  padding: 1.25rem;
+  background: #fffcf8;
+  border: 1px solid #eaddce;
+  border-radius: 2px;
+  overflow-x: auto;
+}
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

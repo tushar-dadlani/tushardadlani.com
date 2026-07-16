@@ -15,6 +15,7 @@
     "@vercel/analytics": "^1.4.1",
     "gray-matter": "^4.0.3",
     "marked": "^18.0.6",
+    "mermaid": "^11.16.0",
     "next": "14.1.0",
     "posthog-js": "^1.403.0",
     "react": "^18.2.0",

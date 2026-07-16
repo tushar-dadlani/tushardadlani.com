@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SiteNav, SiteFooter } from '../../components/Chrome';
 import { PostCTA } from '../../components/PostCTA';
+import { Mermaid } from '../../components/Mermaid';
 import { getPost, getPostSlugs, formatDate } from '../../../lib/posts';
 
 export function generateStaticParams() {
@@ -51,6 +52,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
           className="prose prose-lg prose-headings:font-display prose-headings:font-semibold prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-signal-dim"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
+        <Mermaid />
 
         <PostCTA />
       </main>

@@ -44,6 +44,37 @@ Here's the uncomfortable part: **most multimodal AI projects die between the dem
 
 None of these are model problems. They're readiness problems — and they're fixable, in sequence, before you spend real money.
 
+## Where teams are — and where they should be
+
+Almost every company I talk to is already sitting on valuable data. It's just idle. The gap isn't the data or the models — it's the journey from "we have this" to "it runs in production." That path looks the same everywhere:
+
+```mermaid
+flowchart LR
+  A["Foundation first<br/>centralize data · pick one<br/>use case · name an owner"] --> B["Pilot-ready<br/>working prototype<br/>with real users"]
+  B --> C["Ready to build<br/>evals · ownership ·<br/>executive mandate"]
+  C --> D["In production<br/>monitored · scaled ·<br/>ROI proven"]
+```
+
+What that means concretely for three kinds of business — where they are today, and where the same data they already own could take them:
+
+```mermaid
+flowchart LR
+  subgraph G["🛒 Regional grocery chain"]
+    direction LR
+    G1["Now<br/>thousands of camera<br/>feeds, no analysis"] -->|shrink & shelf-gap detection| G2["Target<br/>automated loss prevention<br/>across every store"]
+  end
+  subgraph I["📄 Specialty insurer"]
+    direction LR
+    I1["Now<br/>millions of scans<br/>read by hand"] -->|extraction + triage| I2["Target<br/>auto-routed claims<br/>with human review"]
+  end
+  subgraph M["🏭 Manufacturer"]
+    direction LR
+    M1["Now<br/>schematics locked<br/>in PDFs"] -->|multimodal search| M2["Target<br/>queryable engineering<br/>knowledge base"]
+  end
+```
+
+The pattern repeats: the raw material is already there. What's missing is the sequence to turn it into something production-grade — not a model, and not more data.
+
 ## The takeaway
 
 Multimodal AI is the first time the data most businesses generate — visual, unstructured, messy — becomes directly useful to software. The technology is ready. The question is whether your **data, use cases, and team** are ready to ship it to production, not just demo it.
