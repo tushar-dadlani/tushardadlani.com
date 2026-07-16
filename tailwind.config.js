@@ -28,7 +28,26 @@ module.exports = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(ellipse at center, var(--tw-gradient-stops))',
       },
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            '--tw-prose-body': theme('colors.clay.600'),
+            '--tw-prose-headings': theme('colors.clay.900'),
+            '--tw-prose-links': theme('colors.signal.DEFAULT'),
+            '--tw-prose-bold': theme('colors.clay.900'),
+            '--tw-prose-counters': theme('colors.clay.500'),
+            '--tw-prose-bullets': theme('colors.clay.200'),
+            '--tw-prose-hr': theme('colors.clay.200'),
+            '--tw-prose-quotes': theme('colors.clay.900'),
+            '--tw-prose-quote-borders': theme('colors.signal.DEFAULT'),
+            '--tw-prose-code': theme('colors.clay.900'),
+            '--tw-prose-pre-bg': theme('colors.clay.900'),
+            '--tw-prose-pre-code': theme('colors.clay.50'),
+            maxWidth: 'none',
+          },
+        },
+      }),
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }

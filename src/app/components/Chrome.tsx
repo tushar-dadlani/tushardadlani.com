@@ -15,6 +15,7 @@ export function SiteNav() {
           </Link>
           <div className="flex items-center gap-7 text-sm">
             <Link href="/#multimodal" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Multimodal AI</Link>
+            <Link href="/writing" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Writing</Link>
             <Link href="/readiness" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Readiness check</Link>
             <a
               href={MAILTO}
