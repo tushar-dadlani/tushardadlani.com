@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export const EMAIL = 'tushar@valuebridge.ai';
 export const MAILTO = `mailto:${EMAIL}?subject=Consulting%20inquiry%20via%20tushardadlani.com`;
-export const MAILTO_MULTIMODAL = `mailto:${EMAIL}?subject=Multimodal%20AI%20Readiness%20%E2%80%94%2030-minute%20fit%20call`;
+export const CAL_URL = 'https://cal.com/tushar-dadlani/consulting';
 export const LINKEDIN = 'https://www.linkedin.com/in/tushardadlani/';
 
 export function SiteNav() {

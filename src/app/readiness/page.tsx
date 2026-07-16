@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { SiteNav, SiteFooter, EMAIL } from '../components/Chrome';
+import posthog from 'posthog-js';
+import { SiteNav, SiteFooter, CAL_URL } from '../components/Chrome';
 
 /* ── Quiz definition ───────────────────────────────────────────── */
 
@@ -150,7 +151,26 @@ export default function ReadinessQuiz() {
     (Object.values(answers).reduce((a, b) => a + b, 0) / MAX_POINTS) * 100
   );
 
+  // Drop-off funnel (temporary — see note in providers/PostHogProvider.tsx).
+  useEffect(() => {
+    try {
+      posthog.capture('readiness_quiz_started');
+    } catch {
+      /* analytics must never block the user */
+    }
+  }, []);
+
   const choose = (key: string, points: number) => {
+    try {
+      posthog.capture('readiness_question_answered', {
+        step: step + 1, // 1-based number of the question just answered
+        total: QUESTIONS.length,
+        question: key,
+        points,
+      });
+    } catch {
+      /* analytics must never block the user */
+    }
     setAnswers((prev) => ({ ...prev, [key]: points }));
     setStep((s) => s + 1);
   };
@@ -166,6 +186,17 @@ export default function ReadinessQuiz() {
     setSendError('');
 
     const t = tierFor(score);
+
+    try {
+      posthog.identify(trimmed, { email: trimmed });
+      posthog.capture('readiness_quiz_completed', {
+        score,
+        tier: t.name,
+        ...answers,
+      });
+    } catch {
+      /* analytics must never block the user */
+    }
 
     // Readable per-question breakdown for the lead notification email.
     const breakdown = QUESTIONS.map((question) => {
@@ -204,6 +235,17 @@ export default function ReadinessQuiz() {
   const tier = tierFor(score);
   const atEmail = step >= QUESTIONS.length && !submitted;
   const q = QUESTIONS[step];
+
+  // Funnel step: user answered all questions and hit the email gate.
+  useEffect(() => {
+    if (atEmail) {
+      try {
+        posthog.capture('readiness_email_gate_reached', { score });
+      } catch {
+        /* analytics must never block the user */
+      }
+    }
+  }, [atEmail, score]);
 
   return (
     <div className="min-h-screen bg-clay-50 text-clay-600 font-sans text-[17px] leading-relaxed flex flex-col">
@@ -337,7 +379,9 @@ export default function ReadinessQuiz() {
                 <Link href="/samples/atlas-specialty" className="text-signal underline underline-offset-4">insurance</Link>.
               </p>
               <a
-                href={`mailto:${EMAIL}?subject=Multimodal%20AI%20fit%20call%20(readiness%20score%3A%20${score})`}
+                href={CAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block bg-signal text-clay-50 font-medium py-3 px-7 rounded-sm hover:bg-signal-dim transition-colors"
               >
                 Book a 30-minute fit call

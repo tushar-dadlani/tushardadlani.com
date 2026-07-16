@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import { PostHogProvider } from "./providers/PostHogProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -44,8 +45,10 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-9482504628791077" />
       </head>
       <body className="antialiased">{/* No whitespace inside body tag */}
-        {children}
-        <Analytics />
+        <PostHogProvider>
+          {children}
+          <Analytics />
+        </PostHogProvider>
       </body>
     </html>
   );

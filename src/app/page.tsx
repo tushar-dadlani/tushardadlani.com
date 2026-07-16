@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const EMAIL = 'tushar@valuebridge.ai';
 const MAILTO = `mailto:${EMAIL}?subject=Consulting%20inquiry%20via%20tushardadlani.com`;
-const MAILTO_MULTIMODAL = `mailto:${EMAIL}?subject=Multimodal%20AI%20Readiness%20%E2%80%94%2030-minute%20fit%20call`;
+const CAL_URL = 'https://cal.com/tushar-dadlani/consulting';
 const LINKEDIN = 'https://www.linkedin.com/in/tushardadlani/';
 
 /* ── Scroll reveal ─────────────────────────────────────────────── */
@@ -223,7 +223,9 @@ export default function ConsultingLandingPage() {
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
               <a
-                href={MAILTO_MULTIMODAL}
+                href={CAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-signal text-clay-50 font-medium py-3 px-7 rounded-sm hover:bg-signal-dim transition-colors"
               >
                 Book a 30-minute fit call
@@ -288,7 +290,7 @@ export default function ConsultingLandingPage() {
             </a>
             <p className="text-sm text-clay-500 mt-6">
               Here about multimodal AI?{' '}
-              <a href={MAILTO_MULTIMODAL} className="text-signal hover:text-signal-dim underline underline-offset-4">
+              <a href={CAL_URL} target="_blank" rel="noopener noreferrer" className="text-signal hover:text-signal-dim underline underline-offset-4">
                 Book the 30-minute fit call
               </a>
             </p>

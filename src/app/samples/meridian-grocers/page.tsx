@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { SiteNav, SiteFooter, MAILTO_MULTIMODAL } from '../../components/Chrome';
+import { SiteNav, SiteFooter, CAL_URL } from '../../components/Chrome';
 
 export const metadata: Metadata = {
   title: 'Sample assessment: regional grocery chain — Tushar Dadlani',
@@ -153,7 +153,9 @@ export default function MeridianSample() {
 
         <div className="border-t border-clay-200 pt-8 flex flex-col sm:flex-row items-start sm:items-center gap-5">
           <a
-            href={MAILTO_MULTIMODAL}
+            href={CAL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-signal text-clay-50 font-medium py-3 px-7 rounded-sm hover:bg-signal-dim transition-colors"
           >
             Get an assessment like this
