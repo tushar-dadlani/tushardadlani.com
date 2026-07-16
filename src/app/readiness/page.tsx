@@ -165,7 +165,7 @@ export default function ReadinessQuiz() {
     setEmailError('');
     setSendError('');
 
-    const tierName = tierFor(score).name;
+    const t = tierFor(score);
 
     // Readable per-question breakdown for the lead notification email.
     const breakdown = QUESTIONS.map((question) => {
@@ -180,7 +180,12 @@ export default function ReadinessQuiz() {
       const res = await fetch('/api/readiness/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: trimmed, score, tier: tierName, breakdown }),
+        body: JSON.stringify({
+          email: trimmed,
+          score,
+          tier: { name: t.name, headline: t.headline, body: t.body },
+          breakdown,
+        }),
       });
       if (!res.ok) throw new Error('send failed');
     } catch {
