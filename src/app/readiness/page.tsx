@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import posthog from 'posthog-js';
 import { SiteNav, SiteFooter, EMAIL } from '../components/Chrome';
 
 /* ── Quiz definition ───────────────────────────────────────────── */
@@ -142,6 +141,8 @@ export default function ReadinessQuiz() {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
   const answered = Object.keys(answers).length;
@@ -154,7 +155,7 @@ export default function ReadinessQuiz() {
     setStep((s) => s + 1);
   };
 
-  const submitEmail = (e: React.FormEvent) => {
+  const submitEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     const trimmed = email.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
@@ -162,16 +163,36 @@ export default function ReadinessQuiz() {
       return;
     }
     setEmailError('');
+    setSendError('');
+
+    const tierName = tierFor(score).name;
+
+    // Readable per-question breakdown for the lead notification email.
+    const breakdown = QUESTIONS.map((question) => {
+      const pts = answers[question.key] ?? 0;
+      const chosen = question.options.find((o) => o.points === pts);
+      const status = pts >= 3 ? 'Strong' : pts === 2 ? 'Workable' : pts === 1 ? 'Gap' : 'Blocker';
+      return { question: question.text, answer: chosen?.label ?? '—', status };
+    });
+
+    setSending(true);
     try {
-      posthog.identify(trimmed, { email: trimmed });
-      posthog.capture('readiness_quiz_completed', {
-        score,
-        tier: tierFor(score).name,
-        ...answers,
+      const res = await fetch('/api/readiness/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: trimmed, score, tier: tierName, breakdown }),
       });
+      if (!res.ok) throw new Error('send failed');
     } catch {
-      // analytics must never block the user
+      setSending(false);
+      setSendError(
+        'We saved your answers but hit a snag delivering them. Your results are below — feel free to book a call directly.'
+      );
+      setSubmitted(true);
+      return;
     }
+
+    setSending(false);
     setSubmitted(true);
   };
 
@@ -239,7 +260,7 @@ export default function ReadinessQuiz() {
               Your score is ready.
             </h1>
             <p className="text-clay-600 mb-8">
-              Enter your work email and I&apos;ll show your readiness tier, where you stand on
+              Enter your work email to see your readiness tier, where you stand on
               each dimension, and the one thing to fix first.
             </p>
             <form onSubmit={submitEmail} className="flex flex-col sm:flex-row gap-3 mb-3">
@@ -253,21 +274,27 @@ export default function ReadinessQuiz() {
               />
               <button
                 type="submit"
-                className="bg-signal text-clay-50 font-medium py-3 px-7 rounded-sm hover:bg-signal-dim transition-colors"
+                disabled={sending}
+                className="bg-signal text-clay-50 font-medium py-3 px-7 rounded-sm hover:bg-signal-dim transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Show my results
+                {sending ? 'Sending…' : 'Show my results'}
               </button>
             </form>
             {emailError && <p className="text-sm text-signal mb-3">{emailError}</p>}
             <p className="text-sm text-clay-500">
-              Used only to send your results and an occasional practical note on shipping
-              multimodal AI. No spam, unsubscribe anytime.
+              Your results show instantly. I&apos;ll only use your email to follow up about
+              your readiness — no spam, unsubscribe anytime.
             </p>
           </>
         )}
 
         {submitted && (
           <>
+            {sendError && (
+              <p className="text-sm text-signal border border-signal/30 bg-signal/5 rounded-sm px-4 py-3 mb-6">
+                {sendError}
+              </p>
+            )}
             <div className="flex items-baseline gap-6 mb-6">
               <p className="font-display text-6xl text-signal">{score}</p>
               <div>

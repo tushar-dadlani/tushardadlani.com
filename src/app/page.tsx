@@ -132,6 +132,12 @@ export default function ConsultingLandingPage() {
               >
                 Start a conversation
               </a>
+              <Link
+                href="/readiness"
+                className="border border-clay-300 text-clay-900 font-medium py-3 px-7 rounded-sm hover:border-signal hover:text-signal transition-colors"
+              >
+                Take the 2-min readiness check
+              </Link>
               <a
                 href={LINKEDIN}
                 target="_blank"
