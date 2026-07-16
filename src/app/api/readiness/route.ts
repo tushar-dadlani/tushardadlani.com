@@ -3,9 +3,11 @@ import { Resend } from 'resend';
 
 export const runtime = 'nodejs';
 
+// Leads are sent to a single fixed recipient (you). On Resend's free plan with no
+// verified domain, the built-in onboarding@resend.dev sender can only deliver to your
+// own Resend account email — so TO must match the address you signed up to Resend with.
 const TO = 'tushar@valuebridge.ai';
-// Must be an address on a Resend-verified domain (see setup notes).
-const FROM = 'Readiness check <readiness@valuebridge.ai>';
+const FROM = 'Readiness check <onboarding@resend.dev>';
 
 interface BreakdownItem {
   question: string;
