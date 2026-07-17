@@ -22,6 +22,7 @@ export function Mermaid() {
       mermaid.initialize({
         startOnLoad: false,
         securityLevel: 'strict',
+        suppressErrorRendering: true, // never inject the error-bomb graphic
         fontFamily: 'var(--font-inter), Inter, sans-serif',
         theme: 'base',
         themeVariables: {
@@ -54,8 +55,13 @@ export function Mermaid() {
       try {
         await mermaid.run({ nodes });
       } catch {
-        // If a diagram fails to parse, leave its source visible rather than crash.
+        // Errors are suppressed above; failed nodes are hidden just below.
       }
+      // Hide any container that didn't produce an SVG, so a failed diagram
+      // shows nothing rather than raw source or a broken graphic.
+      nodes.forEach((n) => {
+        if (!n.querySelector('svg')) n.style.display = 'none';
+      });
     })();
 
     return () => {
