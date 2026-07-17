@@ -2,6 +2,40 @@
 
 import { useEffect } from 'react';
 
+// Opens a full-screen, enlarged view of a rendered diagram. The SVG is vector,
+// so scaling it up to the viewport stays crisp at any size.
+function openLightbox(svg: SVGElement) {
+  const overlay = document.createElement('div');
+  overlay.className = 'mermaid-lightbox';
+
+  const inner = document.createElement('div');
+  inner.className = 'mermaid-lightbox-inner';
+
+  const clone = svg.cloneNode(true) as SVGElement;
+  clone.removeAttribute('width');
+  clone.removeAttribute('height');
+  // Explicit large width (not 100%, which collapses against the shrink-to-fit
+  // container) and clear Mermaid's inline max-width so it scales up crisply.
+  clone.style.width = 'min(88vw, 1400px)';
+  clone.style.maxWidth = 'none';
+  clone.style.height = 'auto';
+  inner.appendChild(clone);
+  overlay.appendChild(inner);
+  document.body.appendChild(overlay);
+  document.body.style.overflow = 'hidden';
+
+  const close = () => {
+    overlay.remove();
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', onKey);
+  };
+  const onKey = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') close();
+  };
+  overlay.addEventListener('click', close);
+  document.addEventListener('keydown', onKey);
+}
+
 // Renders any ```mermaid fenced blocks in the post HTML. The markdown engine
 // emits them as <pre><code class="language-mermaid">…</code></pre> at build time;
 // here we swap each for a themed, client-rendered SVG. Mermaid (~large) is
@@ -37,7 +71,7 @@ export function Mermaid() {
           clusterBorder: '#EADDCE',
           titleColor: '#221A14',
           edgeLabelBackground: '#FBF6F1',
-          fontSize: '15px',
+          fontSize: '16px',
         },
       });
 
@@ -57,10 +91,32 @@ export function Mermaid() {
       } catch {
         // Errors are suppressed above; failed nodes are hidden just below.
       }
-      // Hide any container that didn't produce an SVG, so a failed diagram
-      // shows nothing rather than raw source or a broken graphic.
+
       nodes.forEach((n) => {
-        if (!n.querySelector('svg')) n.style.display = 'none';
+        const svg = n.querySelector('svg');
+        if (!svg) {
+          // Failed to render — show nothing rather than raw source.
+          n.style.display = 'none';
+          return;
+        }
+        // Render crisply at the container width, and make it click-to-enlarge.
+        svg.removeAttribute('height');
+        svg.style.width = '100%';
+        svg.style.maxWidth = '100%';
+        svg.style.height = 'auto';
+
+        n.dataset.zoomable = 'true';
+        n.setAttribute('role', 'button');
+        n.setAttribute('tabindex', '0');
+        n.setAttribute('aria-label', 'Enlarge diagram');
+        const open = () => openLightbox(svg);
+        n.addEventListener('click', open);
+        n.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            open();
+          }
+        });
       });
     })();
 
