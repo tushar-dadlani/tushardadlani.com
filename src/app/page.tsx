@@ -92,7 +92,6 @@ export default function ConsultingLandingPage() {
             </a>
             <div className="flex items-center gap-7 text-sm">
               <a href="#multimodal" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Multimodal AI</a>
-              <a href="#services" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Services</a>
               <Link href="/writing" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Writing</Link>
               <Link href="/readiness" className="hidden md:inline text-clay-600 hover:text-signal transition-colors">Readiness check</Link>
               <a
