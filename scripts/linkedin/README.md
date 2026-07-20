@@ -73,6 +73,11 @@ npm run linkedin:post -- --id sp-0001
 On success each file is updated to `status: published` and stamped with today's
 `publishedAt`, so it won't post twice.
 
+If a default run finds nothing due, it lists the posts that have **never been
+posted** (any linkedin post that isn't `published`) along with the exact
+`-- --id <id>` command to publish each — so drafts don't get forgotten. This is
+read-only: no API calls, no file changes.
+
 ---
 
 ## Scheduling it (optional, later)

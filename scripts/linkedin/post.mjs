@@ -17,7 +17,7 @@ import matter from 'gray-matter';
 
 const SOCIAL_DIR = path.join(process.cwd(), 'content', 'social');
 // LinkedIn versions its API monthly (YYYYMM). Bump if you hit a version error.
-const API_VERSION = process.env.LINKEDIN_API_VERSION || '202506';
+const API_VERSION = process.env.LINKEDIN_API_VERSION || '202607';
 
 function loadEnvLocal() {
   const p = path.join(process.cwd(), '.env.local');
@@ -87,7 +87,9 @@ function readPosts() {
         id: String(data.id).trim(),
         platform: String(data.platform ?? '').trim(),
         status: String(data.status ?? '').trim(),
+        title: String(data.title ?? '').trim(),
         scheduledFor: toISODate(data.scheduledFor),
+        publishedAt: toISODate(data.publishedAt),
         body: content.trim(),
         raw,
       };
@@ -114,6 +116,16 @@ function selectPosts(all) {
   );
 }
 
+// LinkedIn posts that have never gone live: not published, no publishedAt stamp.
+// Sorted by id so the suggestion list is stable/oldest-first.
+function suggestUnposted(all) {
+  return all
+    .filter(
+      (p) => p.platform === 'linkedin' && p.status !== 'published' && !p.publishedAt,
+    )
+    .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+}
+
 async function publish(post) {
   const payload = {
     author: AUTHOR_URN,
@@ -125,7 +137,7 @@ async function publish(post) {
       thirdPartyDistributionChannels: [],
     },
     lifecycleState: 'PUBLISHED',
-    isReblogDisabledByAuthor: false,
+    isReshareDisabledByAuthor: false,
   };
 
   const res = await fetch('https://api.linkedin.com/rest/posts', {
@@ -160,10 +172,29 @@ function markPublished(post) {
 }
 
 async function main() {
-  const selected = selectPosts(readPosts());
+  const all = readPosts();
+  const selected = selectPosts(all);
 
   if (!selected.length) {
-    console.log(`Nothing to post (no due 'scheduled' linkedin posts as of ${TODAY}).`);
+    console.log(`Nothing due to post (no 'scheduled' linkedin posts as of ${TODAY}).`);
+    // On a default run, surface posts that have never been posted so drafts
+    // don't get forgotten. --id has its own errors, so skip suggestions there.
+    if (!idFlag) {
+      const unposted = suggestUnposted(all);
+      if (unposted.length) {
+        console.log('\nNever posted yet:');
+        for (const p of unposted) {
+          const hint =
+            p.status === 'scheduled' && p.scheduledFor
+              ? `scheduled for ${p.scheduledFor}`
+              : p.status || 'draft';
+          console.log(`\n• ${p.id} — ${p.title || '(untitled)'} [${hint}]`);
+          console.log(`  npm run linkedin:post -- --id ${p.id}`);
+        }
+      } else {
+        console.log('\nNothing to suggest — every linkedin post has been published.');
+      }
+    }
     return;
   }
 

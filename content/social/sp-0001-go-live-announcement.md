@@ -1,22 +1,27 @@
 ---
 id: sp-0001
 platform: linkedin
-status: draft
+status: published
 title: Go-live announcement
 campaign: launch
 tags: [launch, intro]
 link: https://tushardadlani.com
 scheduledFor:
-publishedAt:
+publishedAt: 2026-07-20
 ---
-It's live. 🚀
+Will AI solve everything? 
 
-I've been quietly building something at tushardadlani.com — a home for the work
-I do helping teams turn their visual and document data into real, production AI.
+I don't think so.
 
-Most AI attention still goes to text. But the data businesses actually generate
-is photos, scans, forms, video, and diagrams. That's the gap I work in.
+Based on my experience over the past few years I have learned 2 important lessons
 
-If you're sitting on data you can't yet put to work, take a look — and let's talk.
+1. Managing data is a nightmare
+2. Creating customer impact with data is even harder
 
-👉 https://tushardadlani.com
+I have done this for large volumes of image, audio, video and text data. 
+
+Data is never the problem. The biggest problem is streamlining it towards business outcomes.
+
+If you or anyone you know is working on streamlining data towards outcomes, feel free to reach out or setup time. 
+
+You can learn more at: 👉 https://tushardadlani.com
